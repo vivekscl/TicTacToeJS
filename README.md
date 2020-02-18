@@ -22,6 +22,7 @@
 2. Alternate between input for player 1 and player 2.
     * Ensure input is validated before updating the board. Otherwise, ask player to provide input again.
 3. Stop when one of the player has won or when all the moves have been exhausted.
+    * This happens if a player places 3 markers in a row (horizontally, vertically or diagonally) or if the board is full.
 
 ## Screenshots
 ![screenshot](./screenshots/TicTacToeGameplay1.png)
