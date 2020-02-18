@@ -1,4 +1,4 @@
-#TicTacToeJS
+# TicTacToeJS
 
 ## Instructions
 1. Install a stable version of NodeJS (tested: Node 12.13.0)
