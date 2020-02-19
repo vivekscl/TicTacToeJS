@@ -1,4 +1,5 @@
 const { printCell, printCellDivider, printBottomDivider, printNewline } = require('../utils/input-output-helper');
+const { isNumber } = require('../utils/helper');
 const { PLAYER_1_ID, PLAYER_2_ID } = require('../utils/constants');
 const { InvalidInputError } = require('../errors/error-classes');
 const { BOX_OUT_OF_BOUNDS, NON_EMPTY_BOX, INPUT_IS_NOT_A_NUMBER } = require('../errors/error-messages');
@@ -69,9 +70,9 @@ class Board {
      * @throws {InvalidInputError} Given box must be a number, must not out of bounds and must not be filled.
      */
     placeMarker(box, currentPlayer) {
-        if (!this._isNumber(box)) {
+        if (!isNumber(box)) {
             throw new InvalidInputError(INPUT_IS_NOT_A_NUMBER);
-        } else if (!this._isWithinBoardBounds(box)) {
+        } else if (!this._isWithinBoard(box)) {
             throw new InvalidInputError(BOX_OUT_OF_BOUNDS);
         }
         const [row, col] = this.boxToCellMap[box];
@@ -108,7 +109,7 @@ class Board {
     isBoardFull() {
         for (let row = 0; row < this.board.length; row++) {
             for (let col = 0; col < this.board.length; col++) {
-                if (this._isNumber(this.board[row][col])) return false;
+                if (isNumber(this.board[row][col])) return false;
             }
         }
         return true;
@@ -167,21 +168,12 @@ class Board {
     }
 
     /**
-     * Checks if the given value is a number.
-     * @private
-     * @return {boolean} Whether given value is a number.
-     */
-    _isNumber(value) {
-        return !isNaN(value);
-    }
-
-    /**
      * Checks if the given box is within the bounds of the board.
      * @private
      * @param  {Number} box The box to place marker on.
      * @return {boolean} Whether given box is within the bounds of the board.
      */
-    _isWithinBoardBounds(box) {
+    _isWithinBoard(box) {
         return box >= 1 && box <= Math.pow(this.board.length, 2);
     }
 

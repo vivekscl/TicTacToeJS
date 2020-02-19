@@ -12,7 +12,7 @@ module.exports = {
     },
 
     printNewline() {
-        console.log();
+        process.stdout.write('\n');
     },
 
     printWinner(winner) {

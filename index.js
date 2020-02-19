@@ -12,10 +12,10 @@ const runGame = async () => {
         let position = await readline( `${TicTacToeGame.currentPlayer.name}, choose a box to place an \'${TicTacToeGame.currentPlayer.id}\' into:\n>> `);
         try {
             TicTacToeGame.placeMarker(position);
+            TicTacToeGame.updateGameState();
         } catch (err) {
-            console.log(err.message);
+            console.error(err.message);
         }
-        TicTacToeGame.updateGameState();
         TicTacToeGame.printBoard();
     }
 

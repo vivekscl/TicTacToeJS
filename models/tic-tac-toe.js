@@ -23,12 +23,11 @@ class TicTacToe {
     }
 
     /**
-     * Places the marker of the current player on chosen box and switches the player.
+     * Places the marker of the current player on chosen box.
      * @param  {Number} box The box to place marker on.
      */
     placeMarker(box) {
         this.board.placeMarker(box, this.currentPlayer);
-        this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
     }
 
     /**
@@ -43,6 +42,7 @@ class TicTacToe {
             this.isGameOver = true;
             this.winner = null;
         }
+        this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
     }
 
     printBoard() {
