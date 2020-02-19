@@ -26,7 +26,7 @@ class Board {
         // Create Grid
         this.board = [];
         for (let row = 0; row < N; row++) {
-            this.board.push(new Array(3).fill(1));
+            this.board.push(new Array(N).fill(1));
         }
         // Fill 1st column of all rows
         for (let row = 1; row < N; row++) {
@@ -182,7 +182,7 @@ class Board {
      * @return {boolean} Whether given box is within the bounds of the board.
      */
     _isWithinBoardBounds(box) {
-        return box < 1 || box > Math.pow(this.board.length, 2);
+        return box >= 1 && box <= Math.pow(this.board.length, 2);
     }
 
 }
