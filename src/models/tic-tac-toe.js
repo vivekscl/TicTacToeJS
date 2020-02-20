@@ -34,7 +34,7 @@ class TicTacToe {
      * Updates the state of the game.
      */
     updateGameState() {
-        const winnerId = this.gameBoard.getWinnerId();
+        const winnerId = this.gameBoard.getWinnerId(this.currentPlayer);
         if (winnerId !== null) {
             this.isGameOver = true;
             this.winner = winnerId === PLAYER_1_ID ? this.player1 : this.player2;

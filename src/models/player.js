@@ -11,6 +11,11 @@ class Player {
     constructor(id, name) {
         this.id = id;
         this.name = name;
+        this.lastPlacedMarker = -1;
+    }
+
+    updateLastPlacedMarker(box) {
+        this.lastPlacedMarker = box;
     }
 }
 

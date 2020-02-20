@@ -1,6 +1,6 @@
 const { printCell, printCellDivider, printBottomDivider, printNewline } = require('../utils/input-output-helper');
 const { isNumber } = require('../utils/helper');
-const { PLAYER_1_ID, PLAYER_2_ID } = require('../utils/constants');
+const { PLAYER_1_ID, PLAYER_2_ID, DIRECTIONS } = require('../utils/constants');
 const { InvalidInputError } = require('../errors/error-classes');
 const { BOX_OUT_OF_BOUNDS, NON_EMPTY_BOX, INPUT_IS_NOT_A_NUMBER } = require('../errors/error-messages');
 
@@ -58,7 +58,7 @@ class Board {
                     printCellDivider();
                 }
             }
-            printBottomDivider();
+            printBottomDivider(this.board.length);
         }
         printNewline();
     }
@@ -80,25 +80,21 @@ class Board {
             throw new InvalidInputError(NON_EMPTY_BOX);
         }
         this.board[row][col] = currentPlayer.id;
+        currentPlayer.updateLastPlacedMarker(box);
     }
 
     /**
      * Gets the ID of the winner, if any.
+     * @param {Player} currentPlayer
      * @return {String}
      */
-    getWinnerId() {
-        const winnerHorizontal = this._getWinnerIdForHorizontalWin();
-        const winnerVertical = this._getWinnerIdForVerticalWin();
-        const winnerDiagonal = this._getWinnerForDiagonalWin();
-
-        if (winnerHorizontal !== null) {
-            return winnerHorizontal;
-        } else if (winnerVertical !== null) {
-            return winnerVertical;
-        } else if (winnerDiagonal !== null) {
-            return winnerDiagonal
+    getWinnerId(currentPlayer) {
+        const [lastPlacedRow, lastPlacedCol] = this.boxToCellMap[currentPlayer.lastPlacedMarker];
+        for (let direction of DIRECTIONS) {
+            if(this._checkIfWonAnyDirection(direction, 0, lastPlacedRow, lastPlacedCol, currentPlayer.id)) {
+                return currentPlayer.id;
+            }
         }
-
         return null;
     }
 
@@ -113,48 +109,6 @@ class Board {
             }
         }
         return true;
-    }
-
-    /**
-     * Gets the ID of the player that has 3 markers in a row horizontally, if any.
-     * @private
-     * @return {String}
-     */
-    _getWinnerIdForHorizontalWin() {
-        for (let row of this.board) {
-            const setOfRowValues = new Set(row);
-            if (setOfRowValues.size === 1) {
-                return row[0];
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the ID of the player that has 3 markers in a row vertically, if any.
-     * @private
-     * @return {String}
-     */
-    _getWinnerIdForVerticalWin() {
-        for (let col = 0; col < this.board.length; col++) {
-            if (this.board[0][col] === this.board[1][col] && this.board[1][col] === this.board[2][col]) {
-                return this.board[0][col];
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Gets the ID of the player that has 3 markers in a row diagonally, if any.
-     * @private
-     * @return {String}
-     */
-    _getWinnerForDiagonalWin() {
-        if ((this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2])
-            || (this.board[0][2] === this.board[1][1] && this.board[1][1] === this.board[2][0])) {
-            return this.board[1][1];
-        }
-        return null;
     }
 
     /**
@@ -175,6 +129,37 @@ class Board {
      */
     _isWithinBoard(box) {
         return box >= 1 && box <= Math.pow(this.board.length, 2);
+    }
+
+    /**
+     * Checks if the player has won in any direction.
+     * @private
+     * @param  {Array} direction The row and col direction to move after checking
+     * @param  {Number} numMatches
+     * @param  {Number} currentRow
+     * @param  {Number} currentCol
+     * @param  {String} playerId
+     * @return {boolean} Whether the player has won.
+     */
+    _checkIfWonAnyDirection(direction, numMatches, currentRow, currentCol, playerId) {
+        if (numMatches === 3) {
+            return true;
+        } else if (this._isOutOfBounds(currentRow) || this._isOutOfBounds(currentCol)) {
+            return false;
+        } else if (this.board[currentRow][currentCol] === playerId) {
+            return this._checkIfWonAnyDirection(direction, numMatches+1, currentRow + direction[0], currentCol + direction[1], playerId);
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the given index is out of bounds.
+     * @private
+     * @param  {Number} index The box to place marker on.
+     * @return {boolean} Whether given index is out of bounds.
+     */
+    _isOutOfBounds(index) {
+        return index < 0 || index >= this.board.length;
     }
 
 }

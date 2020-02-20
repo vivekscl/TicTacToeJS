@@ -2,11 +2,11 @@ const {Board} = require("../src/models/board");
 const {Player} = require("../src/models/player");
 const {InvalidInputError} = require("../src/errors/error-classes");
 const {PLAYER_1_ID} = require("../src/utils/constants");
-const N = 3;
+const N = 5;
 
 describe('Board Class', () => {
     describe('constructor', () => {
-        test('should construct a new 3x3 board', () => {
+        test('should construct a new NxN board', () => {
             const board = new Board(N);
             const firstCellValue = 1;
             for (let row = 0; row < N; row++) {
@@ -39,7 +39,7 @@ describe('Board Class', () => {
                     expect(placeInvalidMarker).toThrowError(expectedError);
                 });
             };
-            placeValidMarkerTest('8', 2, 1);
+            placeValidMarkerTest(N*N, N-1, N-1);
             placeInvalidMarkerTest([-1], InvalidInputError);
             placeInvalidMarkerTest([0], InvalidInputError);
             placeInvalidMarkerTest(['f'], InvalidInputError);
@@ -50,13 +50,12 @@ describe('Board Class', () => {
             const getWinnerIdTest = (markers, expectedWinner) => {
                 test(`getWinnerId() with board filled at boxes ${markers} should return ${expectedWinner}`, () => {
                     markers.forEach(marker => board.placeMarker(marker, currentPlayer));
-                    expect(board.getWinnerId()).toBe(expectedWinner);
+                    expect(board.getWinnerId(currentPlayer)).toBe(expectedWinner);
                 });
             };
             getWinnerIdTest([1, 2, 3], PLAYER_1_ID);
-            getWinnerIdTest([1, 4, 7], PLAYER_1_ID);
-            getWinnerIdTest([1, 5, 9], PLAYER_1_ID);
-            getWinnerIdTest([], null);
+            getWinnerIdTest([1, 6, 11], PLAYER_1_ID);
+            getWinnerIdTest([1, 7, 13], PLAYER_1_ID);
             getWinnerIdTest([1], null);
             getWinnerIdTest([1, 2], null);
             getWinnerIdTest([1, 2, 4], null);
@@ -70,10 +69,15 @@ describe('Board Class', () => {
                 });
             };
 
+            const allBoxesFilledExceptLast = [];
+            for (let i = 1; i < N*N; i++) {
+                allBoxesFilledExceptLast.push(i);
+            }
             isBoardFullTest([], false);
             isBoardFullTest([1], false);
-            isBoardFullTest([1, 2, 3, 4, 5, 6, 7, 8], false);
-            isBoardFullTest([1, 2, 3, 4, 5, 6, 7, 8, 9], true);
+            isBoardFullTest(allBoxesFilledExceptLast, false);
+            const allBoxesFilled = [...allBoxesFilledExceptLast, N*N];
+            isBoardFullTest(allBoxesFilled, true);
         });
     });
 });

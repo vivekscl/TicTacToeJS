@@ -10,11 +10,15 @@
 6. Enjoy!
 
 ## Discussion
-1. I used JavaScript to implement the app.
+1. Used JavaScript to implement the app.
 2. Used Object Oriented Programming Paradigm to implement the app for the following reasons:
     * To achieve clear separation of concerns.
     * Encapsulate data and functionality.
-    * Ensure Single Responsibility Principle is maintained easily.
+3. Used Depth First Search (DFS) for checking for winner
+    * Done by checking all directions.
+    * Keep going in that direction if it matches current player's marker.
+    * If number of matches reaches 3, a winner has been found.
+    * Recursive DFS makes the code elegant and easy to understand
 
 ## Requirements
 #### Build a two player tic tac toe app where a game is played by alternating input until the game is won by Player 1 (X), Player 2 (O) or is a tie.
@@ -26,7 +30,4 @@
     * This happens if a player places 3 markers in a row (horizontally, vertically or diagonally) or if the board is full.
 
 ## Screenshots
-![screenshot](./screenshots/TicTacToeGameplay1.png)
-
-![screenshot](./screenshots/TicTacToeGameplay2.png)
-
+![screenshot](./screenshots/NxNTicTacToeGameplay.png)

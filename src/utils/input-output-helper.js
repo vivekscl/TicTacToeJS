@@ -1,14 +1,18 @@
 module.exports = {
     printCell(cell) {
-        process.stdout.write(' ' + cell + ' ');
+        const twoSpaces = '  ';
+        const threeSpaces = '   ';
+        process.stdout.write(threeSpaces + cell + (isNaN(cell) || cell < 10 ? threeSpaces : twoSpaces));
     },
 
     printCellDivider() {
         process.stdout.write('|');
     },
 
-    printBottomDivider() {
-        console.log('\n-----------');
+    printBottomDivider(length) {
+        const idealNumberOfDashes = 8; // Decided from trial and error
+        const divider = '-'.repeat(idealNumberOfDashes * length);
+        console.log(`\n${divider}`);
     },
 
     printNewline() {
