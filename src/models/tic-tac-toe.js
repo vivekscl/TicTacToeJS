@@ -9,8 +9,8 @@ class TicTacToe {
 
     /**
      * @constructs TicTacToe
-     * @param  {Player} Player1Name
-     * @param  {Player} Player2Name
+     * @param  {String} Player1Name
+     * @param  {String} Player2Name
      * @param  {Number} N Number of rows and columns
      */
     constructor(Player1Name, Player2Name, N = 3) {
@@ -19,7 +19,7 @@ class TicTacToe {
         this.currentPlayer = this.player1;
         this.isGameOver = false;
         this.winner = null;
-        this.board = new Board(N);
+        this.gameBoard = new Board(N);
     }
 
     /**
@@ -27,18 +27,18 @@ class TicTacToe {
      * @param  {Number} box The box to place marker on.
      */
     placeMarker(box) {
-        this.board.placeMarker(box, this.currentPlayer);
+        this.gameBoard.placeMarker(box, this.currentPlayer);
     }
 
     /**
      * Updates the state of the game.
      */
     updateGameState() {
-        const winnerId = this.board.getWinnerId();
+        const winnerId = this.gameBoard.getWinnerId();
         if (winnerId !== null) {
             this.isGameOver = true;
             this.winner = winnerId === PLAYER_1_ID ? this.player1 : this.player2;
-        } else if (this.board.isBoardFull()) {
+        } else if (this.gameBoard.isBoardFull()) {
             this.isGameOver = true;
             this.winner = null;
         }
@@ -46,7 +46,7 @@ class TicTacToe {
     }
 
     printBoard() {
-        this.board.printBoard();
+        this.gameBoard.printBoard();
     }
 }
 

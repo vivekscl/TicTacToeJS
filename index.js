@@ -1,25 +1,25 @@
-const { TicTacToe } = require('./models/tic-tac-toe');
-const { readline, printWinner, exit } = require('./utils/input-output-helper');
+const { TicTacToe } = require('./src/models/tic-tac-toe');
+const { readline, printWinner, exit } = require('./src/utils/input-output-helper');
 
 
 const runGame = async () => {
-    const Player1Name = await readline('Enter name for Player 1:\n>> ');
-    const Player2Name = await readline('Enter name for Player 2:\n>> ');
-    const TicTacToeGame = new TicTacToe(Player1Name, Player2Name);
-    TicTacToeGame.printBoard();
+    const player1Name = await readline('Enter name for Player 1:\n>> ');
+    const player2Name = await readline('Enter name for Player 2:\n>> ');
+    const ticTacToeGame = new TicTacToe(player1Name, player2Name);
+    ticTacToeGame.printBoard();
 
-    while (!TicTacToeGame.isGameOver) {
-        let position = await readline( `${TicTacToeGame.currentPlayer.name}, choose a box to place an \'${TicTacToeGame.currentPlayer.id}\' into:\n>> `);
+    while (!ticTacToeGame.isGameOver) {
+        let position = parseInt(await readline( `${ticTacToeGame.currentPlayer.name}, choose a box to place an \'${ticTacToeGame.currentPlayer.id}\' into:\n>> `));
         try {
-            TicTacToeGame.placeMarker(position);
-            TicTacToeGame.updateGameState();
+            ticTacToeGame.placeMarker(position);
+            ticTacToeGame.updateGameState();
         } catch (err) {
             console.error(err.message);
         }
-        TicTacToeGame.printBoard();
+        ticTacToeGame.printBoard();
     }
 
-    printWinner(TicTacToeGame.winner);
+    printWinner(ticTacToeGame.winner);
     exit();
 };
 

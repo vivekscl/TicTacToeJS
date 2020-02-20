@@ -5,7 +5,7 @@ const { InvalidInputError } = require('../errors/error-classes');
 const { BOX_OUT_OF_BOUNDS, NON_EMPTY_BOX, INPUT_IS_NOT_A_NUMBER } = require('../errors/error-messages');
 
 /**
- * Represents the game board that will be used to play the game.
+ * Represents the board that will be used to play the game.
  */
 class Board {
 
@@ -15,6 +15,7 @@ class Board {
      */
     constructor(N) {
         this.boxToCellMap = {};
+        this.board = [];
         this._createBoard(N);
     }
 
@@ -25,7 +26,6 @@ class Board {
      */
     _createBoard(N) {
         // Create Grid
-        this.board = [];
         for (let row = 0; row < N; row++) {
             this.board.push(new Array(N).fill(1));
         }
@@ -64,7 +64,7 @@ class Board {
     }
 
     /**
-     * Places the marker on given box using the current player's ID.
+     * Places the currentPlayer's marker on the given box.
      * @param  {Number} box The box to place marker on.
      * @param  {Player} currentPlayer
      * @throws {InvalidInputError} Given box must be a number, must not out of bounds and must not be filled.
@@ -84,7 +84,7 @@ class Board {
 
     /**
      * Gets the ID of the winner, if any.
-     * @return {String} The ID of the winner.
+     * @return {String}
      */
     getWinnerId() {
         const winnerHorizontal = this._getWinnerIdForHorizontalWin();
@@ -103,8 +103,8 @@ class Board {
     }
 
     /**
-     * Checks if the board is full i.e. all moves have been exhausted
-     * @return {boolean} Whether the board is full or not.
+     * Checks if the board is full i.e. all moves have been exhausted.
+     * @return {boolean}
      */
     isBoardFull() {
         for (let row = 0; row < this.board.length; row++) {
@@ -118,7 +118,7 @@ class Board {
     /**
      * Gets the ID of the player that has 3 markers in a row horizontally, if any.
      * @private
-     * @return {String} The ID of the winner
+     * @return {String}
      */
     _getWinnerIdForHorizontalWin() {
         for (let row of this.board) {
@@ -133,7 +133,7 @@ class Board {
     /**
      * Gets the ID of the player that has 3 markers in a row vertically, if any.
      * @private
-     * @return {String} The ID of the winner
+     * @return {String}
      */
     _getWinnerIdForVerticalWin() {
         for (let col = 0; col < this.board.length; col++) {
@@ -147,7 +147,7 @@ class Board {
     /**
      * Gets the ID of the player that has 3 markers in a row diagonally, if any.
      * @private
-     * @return {String} The ID of the winner
+     * @return {String}
      */
     _getWinnerForDiagonalWin() {
         if ((this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2])
@@ -161,7 +161,7 @@ class Board {
      * Checks if the given cell is vacant.
      * @private
      * @param  {Number} cell
-     * @return {boolean} Whether the cell is vacant.
+     * @return {boolean}
      */
     _isVacant(cell) {
         return cell !== PLAYER_1_ID && cell !== PLAYER_2_ID;
@@ -171,7 +171,7 @@ class Board {
      * Checks if the given box is within the bounds of the board.
      * @private
      * @param  {Number} box The box to place marker on.
-     * @return {boolean} Whether given box is within the bounds of the board.
+     * @return {boolean}
      */
     _isWithinBoard(box) {
         return box >= 1 && box <= Math.pow(this.board.length, 2);

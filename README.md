@@ -2,11 +2,12 @@
 
 ## Instructions
 1. Install a stable version of NodeJS (tested: Node 12.13.0)
-2. Navigate to [repo](https://github.com/vivekscl/TicTacToeJS)
-3. Clone locally using
+2. Clone locally using
    `git clone https://github.com/vivekscl/TicTacToeJS.git`
-4. Start the app using `npm start`
-5. Enjoy!
+3. Install `Jest` using `npm install` (If you want to run tests)
+4. Run tests using `npm test`
+5. Start the app using `npm start`
+6. Enjoy!
 
 ## Discussion
 1. I used JavaScript to implement the app.

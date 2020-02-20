@@ -4,7 +4,7 @@
   "description": "Zendesk Take-Home Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --no-cache --verbose",
     "start": "node index.js"
   },
   "keywords": [
@@ -13,5 +13,8 @@
   ],
   "author": "Vivek Lakshmanan",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
 }
