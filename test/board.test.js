@@ -2,11 +2,11 @@ const {Board} = require("../src/models/board");
 const {Player} = require("../src/models/player");
 const {InvalidInputError} = require("../src/errors/error-classes");
 const {PLAYER_1_ID} = require("../src/utils/constants");
+const N = 3;
 
 describe('Board Class', () => {
     describe('constructor', () => {
         test('should construct a new 3x3 board', () => {
-            const N = 3;
             const board = new Board(N);
             const firstCellValue = 1;
             for (let row = 0; row < N; row++) {
@@ -21,7 +21,6 @@ describe('Board Class', () => {
         let board;
         let currentPlayer;
         beforeEach(() => {
-            const N = 3;
             const playerName = 'John Doe';
             board = new Board(N);
             currentPlayer = new Player(PLAYER_1_ID, playerName);
@@ -63,9 +62,9 @@ describe('Board Class', () => {
             getWinnerIdTest([1, 2, 4], null);
         });
 
-        describe('getWinnerId', () => {
+        describe('isBoardFull', () => {
             const isBoardFullTest = (markers, expected) => {
-                test(`getWinnerId() should return ${expected}`, () => {
+                test(`isBoardFull() should return ${expected} with board filled at boxes ${markers}`, () => {
                     markers.forEach(marker => board.placeMarker(marker, currentPlayer));
                     expect(board.isBoardFull()).toBe(expected);
                 });
