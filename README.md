@@ -3,7 +3,7 @@
 ## Instructions
 1. Install a stable version of NodeJS (tested: Node 12.13.0)
 2. Clone locally using
-   `git clone https://github.com/vivekscl/TicTacToeJS.git` (switch to `NxNTicTacToe` branch to try the NxN version)
+   `git clone https://github.com/vivekscl/TicTacToeJS.git` (use `git checkout NxNTicTacToe` to try the NxN version)
 3. Install `Jest` using `npm install` (If you want to run tests)
 4. Run tests using `npm test`
 5. Start the app using `npm start`
