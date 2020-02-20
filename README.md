@@ -14,7 +14,7 @@
 2. Used Object Oriented Programming Paradigm to implement the app for the following reasons:
     * To achieve clear separation of concerns.
     * Encapsulate data and functionality.
-    * Ensure Single Responsibility Princple is maintained easily.
+    * Ensure Single Responsibility Principle is maintained easily.
 
 ## Requirements
 #### Build a two player tic tac toe app where a game is played by alternating input until the game is won by Player 1 (X), Player 2 (O) or is a tie.
